@@ -6,6 +6,7 @@
 package ProgramaMercearia;
 
 import java.time.temporal.TemporalQueries;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,10 +15,20 @@ import javax.swing.JOptionPane;
  */
 public class CompraGUI extends javax.swing.JPanel {
 
+    private double totalCompra;
     private Produto produtoSelec;
+    private Tabela carrinhoTab;
 
     public CompraGUI() {
         initComponents();
+        initPers();
+    }
+
+    private void initPers() {
+        this.carrinhoTab = new Tabela(this);
+        tabelaCarrinho.setModel(carrinhoTab);
+        totalCompra = 0.0;
+
     }
 
     /**
@@ -38,7 +49,7 @@ public class CompraGUI extends javax.swing.JPanel {
         precPTF = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        carrinTb = new javax.swing.JTable();
+        tabelaCarrinho = new javax.swing.JTable();
         removBt = new javax.swing.JButton();
         finalizarBt = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -85,6 +96,9 @@ public class CompraGUI extends javax.swing.JPanel {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 quantTFKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                quantTFKeyTyped(evt);
+            }
         });
 
         precPTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -94,7 +108,8 @@ public class CompraGUI extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Preço Parc.");
 
-        carrinTb.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCarrinho.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -105,13 +120,23 @@ public class CompraGUI extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(carrinTb);
+        jScrollPane1.setViewportView(tabelaCarrinho);
 
         removBt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         removBt.setText("Remover");
+        removBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removBtActionPerformed(evt);
+            }
+        });
 
         finalizarBt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         finalizarBt.setText("Finalizar");
+        finalizarBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalizarBtActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Estoque");
@@ -210,29 +235,47 @@ public class CompraGUI extends javax.swing.JPanel {
     private void codTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_codTFActionPerformed
-
-    private void addBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtActionPerformed
-        
-        if(produtoSelec != null && !quantTF.getText().equals("N/A")){
+    private void addItem() {
+        if (produtoSelec != null && !quantTF.getText().equals("N/A")) {
             //produto está apto a ser add
             int quant = Integer.parseInt(quantTF.getText());
-            if(quant <= produtoSelec.getQuant()){
+            if (quant <= produtoSelec.getQuant()) {
                 Produto vendido = new Produto(produtoSelec.getCod(), quant, produtoSelec.getNome(), produtoSelec.getPrec());
-                produtoSelec.setQuant(produtoSelec.getQuant() - quant);
+                //produtoSelec.setQuant(produtoSelec.getQuant() - quant);
+                totalCompra += produtoSelec.getPrec() * quant;
+                this.totalTxt.setText(String.format("%.2f", totalCompra));
+
+                nomeTF.setText("");
                 codTF.setText("");
                 quantTF.setText("1");
                 precPTF.setText("");
                 produtoSelec = null;
-                
-            }else{
-                //não tem quantidade sufuciente
+                quantTF.setEnabled(false);
+
+                this.carrinhoTab.addProduto(vendido);
+                tabelaCarrinho.updateUI();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Não há produtos sufientes para a venda", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            
-        }else{
-            //produto não existe ou nem tem quant
+
+        } else {
+            JOptionPane.showMessageDialog(null, "O produto digitado não existe", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+    }
+    private void addBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtActionPerformed
+
+        addItem();
+
     }//GEN-LAST:event_addBtActionPerformed
+
+    public void atualizaTabela() {
+        tabelaCarrinho.updateUI();
+
+        double preco = carrinhoTab.calculaPrec();
+        totalTxt.setText(String.format("%.2f", preco));
+    }
+
 
     private void codTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTFKeyTyped
         if (evt.getKeyChar() == '\n') {
@@ -269,7 +312,7 @@ public class CompraGUI extends javax.swing.JPanel {
                 int quant = Integer.parseInt(quantTF.getText());
                 double precoParcial = produtoSelec.getPrec() * quant;
                 precPTF.setText(String.format("%.2f", precoParcial));
-            }catch(NumberFormatException ex){
+            } catch (NumberFormatException ex) {
                 precPTF.setText("N/A");
             }
         } else {
@@ -278,10 +321,72 @@ public class CompraGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_quantTFKeyReleased
 
+    private void removBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removBtActionPerformed
+        int linhaSel = tabelaCarrinho.getSelectedRow();
+        if (linhaSel != -1) {
+            int op = JOptionPane.showConfirmDialog(null, "Deseja remover o produto selecionado?", "Confirma exclusão?",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (op == JOptionPane.YES_OPTION) {
+                String senha = JOptionPane.showInputDialog(null, "Digite a senha de segurança:", "Senha de segurança",
+                        JOptionPane.INFORMATION_MESSAGE);
+                if (senha != null && senha.equalsIgnoreCase("ifmg")) {
+                    carrinhoTab.removeProduto(linhaSel);
+                    atualizaTabela();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Senha inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "O produto não foi selecionado", "Erro", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_removBtActionPerformed
+
+    private boolean verQuant() {
+        Vector<Produto> compras = carrinhoTab.getProdutos();
+
+        for (Produto i : compras) {
+            if (i.getQuant() > FakeBD.consultaProdutoCod(i.getCod()).getQuant()) {
+                JOptionPane.showMessageDialog(null, "A quantidade do profuto " + i.getNome() + ", não é suficiente para realizar"
+                        + " a venda.", "Quantidade inferior", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+    private void finalizarBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarBtActionPerformed
+        //verificar a quaantidade de produtos
+        if (verQuant()) {
+            //atualizar o fake db
+            Vector<Produto> compras = carrinhoTab.getProdutos();
+            for (Produto i : compras) {
+                Produto estoque = FakeBD.consultaProdutoCod(i.getCod());
+                estoque.setQuant(estoque.getQuant() - i.getQuant());
+            }
+            //Zerando valor total
+        totalCompra = 0.0;
+        totalTxt.setText("0,00");
+
+        //remove produtos da tabela
+        carrinhoTab.limpaCarrinh();
+        tabelaCarrinho.updateUI();
+
+        }
+
+        
+
+    }//GEN-LAST:event_finalizarBtActionPerformed
+
+    private void quantTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantTFKeyTyped
+
+        if (evt.getKeyChar() == '\n') {
+            addItem();
+        }
+    }//GEN-LAST:event_quantTFKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBt;
-    private javax.swing.JTable carrinTb;
     private javax.swing.JTextField codTF;
     private javax.swing.JButton finalizarBt;
     private javax.swing.JButton jButton3;
@@ -295,6 +400,7 @@ public class CompraGUI extends javax.swing.JPanel {
     private javax.swing.JTextField precPTF;
     private javax.swing.JTextField quantTF;
     private javax.swing.JButton removBt;
+    private javax.swing.JTable tabelaCarrinho;
     private javax.swing.JLabel totalTxt;
     // End of variables declaration//GEN-END:variables
 }

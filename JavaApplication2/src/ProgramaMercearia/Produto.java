@@ -44,6 +44,11 @@ public class Produto {
     public void setPrec(double prec) {
         this.prec = prec;
     }
+
+    @Override
+    public String toString() {
+        return this.cod+";"+this.nome+";"+this.prec+";"+this.quant;
+    }
     
     
 }
