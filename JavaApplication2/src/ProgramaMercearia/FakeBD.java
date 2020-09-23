@@ -35,15 +35,17 @@ public class FakeBD {
             BufferedReader bufferLeitura = new BufferedReader(marcaLeitura);  
             String linha = "";
             bufferLeitura.readLine();
-            do{
-                linha = bufferLeitura.readLine();
+            linha = bufferLeitura.readLine();
+            while(linha != null){
+                
                 String infos[] = linha.split(";");
                 int cod = Integer.parseInt(infos[0]), quant = Integer.parseInt(infos[3]);
                 String nome = infos[1];
                 double preco = Double.parseDouble(infos[2]);
                 
                 produtos.add(new Produto(cod, quant, nome, preco));
-            }while(linha != null);
+                linha = bufferLeitura.readLine();
+            }
             bufferLeitura.close();
         } catch (FileNotFoundException ex) {
             System.err.println("Arquivo verificado não existe");

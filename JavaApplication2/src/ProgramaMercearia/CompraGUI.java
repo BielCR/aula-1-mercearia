@@ -5,6 +5,7 @@
  */
 package ProgramaMercearia;
 
+import java.time.temporal.TemporalQueries;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,9 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class CompraGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CompraGUI
-     */
+    private Produto produtoSelec;
+
     public CompraGUI() {
         initComponents();
     }
@@ -35,7 +35,7 @@ public class CompraGUI extends javax.swing.JPanel {
         nomeTF = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         quantTF = new javax.swing.JTextField();
-        precUTF = new javax.swing.JTextField();
+        precPTF = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         carrinTb = new javax.swing.JTable();
@@ -77,13 +77,22 @@ public class CompraGUI extends javax.swing.JPanel {
         quantTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         quantTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         quantTF.setText("1");
+        quantTF.setEnabled(false);
+        quantTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                quantTFKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                quantTFKeyReleased(evt);
+            }
+        });
 
-        precUTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        precUTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        precUTF.setEnabled(false);
+        precPTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        precPTF.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        precPTF.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Preço Unitário");
+        jLabel4.setText("Preço Parc.");
 
         carrinTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,7 +139,7 @@ public class CompraGUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(precUTF)
+                            .addComponent(precPTF)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nomeTF)
@@ -179,7 +188,7 @@ public class CompraGUI extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(precUTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(precPTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(removBt)
@@ -203,7 +212,26 @@ public class CompraGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_codTFActionPerformed
 
     private void addBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtActionPerformed
-        // TODO add your handling code here:
+        
+        if(produtoSelec != null && !quantTF.getText().equals("N/A")){
+            //produto está apto a ser add
+            int quant = Integer.parseInt(quantTF.getText());
+            if(quant <= produtoSelec.getQuant()){
+                Produto vendido = new Produto(produtoSelec.getCod(), quant, produtoSelec.getNome(), produtoSelec.getPrec());
+                produtoSelec.setQuant(produtoSelec.getQuant() - quant);
+                codTF.setText("");
+                quantTF.setText("1");
+                precPTF.setText("");
+                produtoSelec = null;
+                
+            }else{
+                //não tem quantidade sufuciente
+            }
+            
+        }else{
+            //produto não existe ou nem tem quant
+        }
+        
     }//GEN-LAST:event_addBtActionPerformed
 
     private void codTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTFKeyTyped
@@ -212,10 +240,11 @@ public class CompraGUI extends javax.swing.JPanel {
                 try {
 
                     int cod = Integer.parseInt(codTF.getText());
-                    Produto consultado = FakeBD.consultaProdutoCod(cod);
-                    if (consultado != null) {
-                        nomeTF.setText(consultado.getNome());
-                        precUTF.setText(consultado.getPrec() + "");
+                    produtoSelec = FakeBD.consultaProdutoCod(cod);
+                    if (produtoSelec != null) {
+                        nomeTF.setText(produtoSelec.getNome());
+                        precPTF.setText(produtoSelec.getPrec() + "");
+                        quantTF.setEnabled(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Não existe produto com esse código", "Erro", JOptionPane.WARNING_MESSAGE);
                     }
@@ -229,6 +258,25 @@ public class CompraGUI extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_codTFKeyTyped
+
+    private void quantTFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantTFKeyPressed
+
+    }//GEN-LAST:event_quantTFKeyPressed
+
+    private void quantTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantTFKeyReleased
+        if (!quantTF.getText().isEmpty()) {
+            try {
+                int quant = Integer.parseInt(quantTF.getText());
+                double precoParcial = produtoSelec.getPrec() * quant;
+                precPTF.setText(String.format("%.2f", precoParcial));
+            }catch(NumberFormatException ex){
+                precPTF.setText("N/A");
+            }
+        } else {
+            //Campo da quantidade vazio
+            precPTF.setText("N/A");
+        }
+    }//GEN-LAST:event_quantTFKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -244,7 +292,7 @@ public class CompraGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nomeTF;
-    private javax.swing.JTextField precUTF;
+    private javax.swing.JTextField precPTF;
     private javax.swing.JTextField quantTF;
     private javax.swing.JButton removBt;
     private javax.swing.JLabel totalTxt;
