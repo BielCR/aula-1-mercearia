@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ProgramaMercearia;
 
 import java.time.temporal.TemporalQueries;
@@ -15,18 +10,25 @@ import javax.swing.JOptionPane;
  */
 public class CompraGUI extends javax.swing.JPanel {
 
+    //delcaração de variáveis
     private double totalCompra;
     private Produto produtoSelec;
     private Tabela carrinhoTab;
 
+    //Contrutor
     public CompraGUI() {
         initComponents();
+
+        //initComponents personalizado  
         initPers();
     }
 
     private void initPers() {
+        //Contrutor do modelo da tabela chamando a classe tabela
         this.carrinhoTab = new Tabela(this);
+        //definindo a tabela com esse modelo gerado
         tabelaCarrinho.setModel(carrinhoTab);
+        //definindo o total da compra com 00
         totalCompra = 0.0;
 
     }
@@ -237,14 +239,16 @@ public class CompraGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_codTFActionPerformed
     private void addItem() {
         if (produtoSelec != null && !quantTF.getText().equals("N/A")) {
-            //produto está apto a ser add
+            //produto está apto a ser adicionado
             int quant = Integer.parseInt(quantTF.getText());
+            //Verificando se possui a quantidade do produto no estoque
             if (quant <= produtoSelec.getQuant()) {
                 Produto vendido = new Produto(produtoSelec.getCod(), quant, produtoSelec.getNome(), produtoSelec.getPrec());
                 //produtoSelec.setQuant(produtoSelec.getQuant() - quant);
                 totalCompra += produtoSelec.getPrec() * quant;
                 this.totalTxt.setText(String.format("%.2f", totalCompra));
 
+                //limpeza dos campos de texto
                 nomeTF.setText("");
                 codTF.setText("");
                 quantTF.setText("1");
@@ -252,7 +256,9 @@ public class CompraGUI extends javax.swing.JPanel {
                 produtoSelec = null;
                 quantTF.setEnabled(false);
 
+                //adicionando na tabela o produto que acabou de ser vendido
                 this.carrinhoTab.addProduto(vendido);
+                //fazendo o update da tabela
                 tabelaCarrinho.updateUI();
 
             } else {
@@ -263,12 +269,15 @@ public class CompraGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "O produto digitado não existe", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    //função criada pra adicionar um produto quando o botão add for chamado
     private void addBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtActionPerformed
 
         addItem();
 
     }//GEN-LAST:event_addBtActionPerformed
 
+    //função pra atualizar a tabela 
     public void atualizaTabela() {
         tabelaCarrinho.updateUI();
 
@@ -276,23 +285,29 @@ public class CompraGUI extends javax.swing.JPanel {
         totalTxt.setText(String.format("%.2f", preco));
     }
 
-
+//mostrar os produtos quando o enter for pressionado no campo de código
     private void codTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codTFKeyTyped
+        //verificando se a tecla enter foi pressionada
         if (evt.getKeyChar() == '\n') {
+            //verificando se tem algo no campo de código escrito
             if (!codTF.getText().isEmpty()) {
                 try {
-
+                    //coletando o código
                     int cod = Integer.parseInt(codTF.getText());
+                    //verificando o produto pelo código selecionado
                     produtoSelec = FakeBD.consultaProdutoCod(cod);
                     if (produtoSelec != null) {
+                        //preenchendo campos
                         nomeTF.setText(produtoSelec.getNome());
                         precPTF.setText(produtoSelec.getPrec() + "");
                         quantTF.setEnabled(true);
                     } else {
+                       //tratando uma possível inexistência dos produtos 
                         JOptionPane.showMessageDialog(null, "Não existe produto com esse código", "Erro", JOptionPane.WARNING_MESSAGE);
                     }
 
                 } catch (NumberFormatException ex) {
+                    //tratando um possivel erro de digitação devido ao uso de letras no código
                     JOptionPane.showMessageDialog(null, "O código deve ser um valor numérico", "Erro no código",
                             JOptionPane.WARNING_MESSAGE);
 
@@ -305,12 +320,15 @@ public class CompraGUI extends javax.swing.JPanel {
     private void quantTFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantTFKeyPressed
 
     }//GEN-LAST:event_quantTFKeyPressed
-
+    //quando a quantidade for digitada
     private void quantTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quantTFKeyReleased
         if (!quantTF.getText().isEmpty()) {
             try {
+                //observando a quantidade
                 int quant = Integer.parseInt(quantTF.getText());
+                //definindo o preço parcial
                 double precoParcial = produtoSelec.getPrec() * quant;
+                //definindo o campo de preço parcial com a formatação de duas casas decimais
                 precPTF.setText(String.format("%.2f", precoParcial));
             } catch (NumberFormatException ex) {
                 precPTF.setText("N/A");
@@ -320,19 +338,27 @@ public class CompraGUI extends javax.swing.JPanel {
             precPTF.setText("N/A");
         }
     }//GEN-LAST:event_quantTFKeyReleased
-
+    //quando o botão remove for ativado
     private void removBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removBtActionPerformed
+        //"pegando" a linha selecionada
         int linhaSel = tabelaCarrinho.getSelectedRow();
+        
+        //verificano se a linha foi selecionada
         if (linhaSel != -1) {
+            //confirmando se o usuário quer mesmo remover o produto
             int op = JOptionPane.showConfirmDialog(null, "Deseja remover o produto selecionado?", "Confirma exclusão?",
                     JOptionPane.YES_NO_OPTION);
-
+            
             if (op == JOptionPane.YES_OPTION) {
+                //requerindo a senha de segurança ifmg
                 String senha = JOptionPane.showInputDialog(null, "Digite a senha de segurança:", "Senha de segurança",
                         JOptionPane.INFORMATION_MESSAGE);
+                
                 if (senha != null && senha.equalsIgnoreCase("ifmg")) {
+                    //removendo produto e atualizando a tabela
                     carrinhoTab.removeProduto(linhaSel);
                     atualizaTabela();
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Senha inválida", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -341,8 +367,9 @@ public class CompraGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "O produto não foi selecionado", "Erro", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_removBtActionPerformed
-
+ //verificando a quantidade de produto no estque pra realização da venda
     private boolean verQuant() {
+      
         Vector<Produto> compras = carrinhoTab.getProdutos();
 
         for (Produto i : compras) {
@@ -364,16 +391,15 @@ public class CompraGUI extends javax.swing.JPanel {
                 estoque.setQuant(estoque.getQuant() - i.getQuant());
             }
             //Zerando valor total
-        totalCompra = 0.0;
-        totalTxt.setText("0,00");
+            totalCompra = 0.0;
+            totalTxt.setText("0,00");
 
-        //remove produtos da tabela
-        carrinhoTab.limpaCarrinh();
-        tabelaCarrinho.updateUI();
+            //remove produtos da tabela
+            carrinhoTab.limpaCarrinh();
+            tabelaCarrinho.updateUI();
 
         }
 
-        
 
     }//GEN-LAST:event_finalizarBtActionPerformed
 
