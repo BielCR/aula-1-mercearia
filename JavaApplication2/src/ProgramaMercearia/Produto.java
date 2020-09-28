@@ -10,10 +10,13 @@ package ProgramaMercearia;
  * @author gabri
  */
 public class Produto {
+
+    //definindo variáveis
     private int cod, quant;
     private String nome;
     private double prec;
 
+    //construtor
     public Produto(int cod, int quant, String nome, double prec) {
         this.cod = cod;
         this.quant = quant;
@@ -21,6 +24,7 @@ public class Produto {
         this.prec = prec;
     }
 
+    //geters e seters
     public int getCod() {
         return cod;
     }
@@ -47,9 +51,7 @@ public class Produto {
 
     @Override
     public String toString() {
-        return this.cod+";"+this.nome+";"+this.prec+";"+this.quant;
+        return this.cod + ";" + this.nome + ";" + this.prec + ";" + this.quant;
     }
-    
-    
-}
 
+}
