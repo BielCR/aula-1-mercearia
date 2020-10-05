@@ -11,11 +11,16 @@ package ProgramaMercearia;
  */
 public class EstoqueGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EstoqueGUI
-     */
+  private TabelaEstoque infTabela;
+    
     public EstoqueGUI() {
         initComponents();
+        meuInit();
+    }
+    
+    private void meuInit(){
+        infTabela = new TabelaEstoque();
+        this.estoqueTabela.setModel(infTabela);
     }
 
     /**
@@ -149,7 +154,8 @@ public class EstoqueGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_nomePesquisaBTActionPerformed
 
     private void voltarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBTActionPerformed
-        // TODO add your handling code here:
+        JanelaPrincipal.fazTransicao(null, "compra");
+
     }//GEN-LAST:event_voltarBTActionPerformed
 
 

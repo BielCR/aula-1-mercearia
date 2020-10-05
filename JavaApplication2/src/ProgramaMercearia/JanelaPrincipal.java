@@ -59,8 +59,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }
 
     public static void fazTransicao(JPanel novoPainel, String nome) {
+        //quando o novoPainel é nulo, quer dizer que o usuário já interagiu com o painel
+        //quando não é nulo, essa é a primeira interação d usuário com o painel
         
-        if(novoPainel != null){
+        if(novoPainel != null && !paineis.containsKey(nome)){
             //usuario nunca vizualizou com esse painel
             trocaInf.add(novoPainel, nome);
             paineis.put(nome, novoPainel);

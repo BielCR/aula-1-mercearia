@@ -13,12 +13,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author gabri
  */
-public class Tabela extends AbstractTableModel {
+public class TabelaCompra extends AbstractTableModel {
 
     private Vector<Produto> compras;
     private CompraGUI painel;
 
-    public Tabela(CompraGUI p) {
+    public TabelaCompra(CompraGUI p) {
         compras = new Vector<>();
         this.painel = p;
     }

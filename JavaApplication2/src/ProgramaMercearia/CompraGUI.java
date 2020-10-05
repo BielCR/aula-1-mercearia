@@ -13,7 +13,7 @@ public class CompraGUI extends javax.swing.JPanel {
     //delcaração de variáveis
     private double totalCompra;
     private Produto produtoSelec;
-    private Tabela carrinhoTab;
+    private TabelaCompra carrinhoTab;
 
     //Contrutor
     public CompraGUI() {
@@ -25,7 +25,7 @@ public class CompraGUI extends javax.swing.JPanel {
 
     private void initPers() {
         //Contrutor do modelo da tabela chamando a classe tabela
-        this.carrinhoTab = new Tabela(this);
+        this.carrinhoTab = new TabelaCompra(this);
         //definindo a tabela com esse modelo gerado
         tabelaCarrinho.setModel(carrinhoTab);
         //definindo o total da compra com 00
@@ -142,6 +142,11 @@ public class CompraGUI extends javax.swing.JPanel {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jButton3.setText("Estoque");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         addBt.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         addBt.setText("Adicionar Produto");
@@ -409,6 +414,11 @@ public class CompraGUI extends javax.swing.JPanel {
             addItem();
         }
     }//GEN-LAST:event_quantTFKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JanelaPrincipal.fazTransicao(new EstoqueGUI(), "estoque");
+
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
