@@ -50,6 +50,11 @@ public class EstoqueGUI extends javax.swing.JPanel {
                 nomePesquisaTFActionPerformed(evt);
             }
         });
+        nomePesquisaTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomePesquisaTFKeyReleased(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Nome:");
@@ -65,6 +70,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
             }
         });
 
+        estoqueTabela.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         estoqueTabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -157,6 +163,14 @@ public class EstoqueGUI extends javax.swing.JPanel {
         JanelaPrincipal.fazTransicao(null, "compra");
 
     }//GEN-LAST:event_voltarBTActionPerformed
+
+    private void nomePesquisaTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomePesquisaTFKeyReleased
+        String digitado = this.nomePesquisaTF.getText();
+        infTabela.atualizaDadosTabela(digitado);
+        
+        //atualiza as informações na tabela
+        estoqueTabela.updateUI();
+    }//GEN-LAST:event_nomePesquisaTFKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

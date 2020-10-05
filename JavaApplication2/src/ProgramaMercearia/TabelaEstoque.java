@@ -13,8 +13,15 @@ import javax.swing.table.AbstractTableModel;
  * @author gabri
  */
 public class TabelaEstoque extends AbstractTableModel {
+    
+     private Vector<Produto> produtoEstoque; 
+     
+    public TabelaEstoque(){
+        this.produtoEstoque = new Vector<>();
+        atualizaDadosTabela("");
+    }
 
-    private Vector<Produto> produtoEstoque;
+   
 
     @Override
     public int getRowCount() {
@@ -36,9 +43,22 @@ public class TabelaEstoque extends AbstractTableModel {
             default: return null;
         }
     }
+
+    @Override
+    public String getColumnName(int coluna) {
+        switch(coluna){
+            case 0: return "Nome";
+            case 1: return "Preço";
+            case 2: return "Quantidade";
+            case 3: return "Cód.";
+            default: return null;
+        }
+    }
+    
+    
     
     public void atualizaDadosTabela(String consulta){
-        
+        produtoEstoque = FakeBD.consultaNome(consulta);
     }
 
 }
