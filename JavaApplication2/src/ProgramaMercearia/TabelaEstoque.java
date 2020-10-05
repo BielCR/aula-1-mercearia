@@ -36,5 +36,9 @@ public class TabelaEstoque extends AbstractTableModel {
             default: return null;
         }
     }
+    
+    public void atualizaDadosTabela(String consulta){
+        
+    }
 
 }
