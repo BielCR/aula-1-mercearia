@@ -9,7 +9,7 @@ package ProgramaMercearia;
  *
  * @author gabri
  */
-public class Produto {
+public class Produto implements Comparable<Produto>{
 
     //definindo variáveis
     private int cod, quant;
@@ -52,6 +52,12 @@ public class Produto {
     @Override
     public String toString() {
         return this.cod + ";" + this.nome + ";" + this.prec + ";" + this.quant;
+    }
+
+    //compara os nomes e retorna a em ordem alfabética
+    @Override
+    public int compareTo(Produto o) {
+        return this.nome.toLowerCase().compareTo(o.getNome().toLowerCase());
     }
 
 }

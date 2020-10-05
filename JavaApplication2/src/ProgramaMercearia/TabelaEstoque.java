@@ -5,6 +5,8 @@
  */
 package ProgramaMercearia;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
@@ -54,11 +56,30 @@ public class TabelaEstoque extends AbstractTableModel {
             default: return null;
         }
     }
+
+    @Override
+    public boolean isCellEditable(int linha, int coluna) {
+        if(coluna < 3){
+            return true;
+        }else{
+            return false;
+        }
+    }   
+
+    @Override
+    public Class<?> getColumnClass(int coluna) {
+
+    }
+    
+    
     
     
     
     public void atualizaDadosTabela(String consulta){
         produtoEstoque = FakeBD.consultaNome(consulta);
+        
+        //ordena os produtos em ordem alfabética
+        Collections.sort(produtoEstoque);
     }
 
 }
