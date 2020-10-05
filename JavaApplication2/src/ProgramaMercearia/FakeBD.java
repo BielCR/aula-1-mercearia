@@ -26,7 +26,7 @@ public class FakeBD {
     private static Vector<Produto> produtos;
 
     //carregando os itens do nosso banco de dados falso
-    private static void carga() {
+    public static void carga() {
 
         //inicializando o vetor
         if (produtos == null) {

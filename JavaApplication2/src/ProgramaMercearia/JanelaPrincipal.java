@@ -7,6 +7,7 @@ package ProgramaMercearia;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -14,36 +15,61 @@ import javax.swing.*;
  * @author gabri
  */
 public class JanelaPrincipal extends javax.swing.JFrame {
+//Representa a barra de rolagem
 
     private static JScrollPane barraRolagem;
+
+    //auxilia na trasinção de paineisLayout existentes
     private static JPanel trocaInf;
-    private static CardLayout paineis;
-    
+
+    //gerencia qual painel está visivel
+    private static CardLayout paineisLayout;
+
+    //Criando tabela hash que conterá todos os paineis criados
+    private static HashMap<String, JPanel> paineis;
+
     public JanelaPrincipal() {
         initComponents();
         meuInit();
     }
-    
-    private void meuInit(){
-        barraRolagem = new JScrollPane();
+
+    private void meuInit() {
+        paineis = new HashMap<>();
         
+        //Carregando arquivos do banco de dados
+        FakeBD.carga();
+
+        //Ocupando o frame com a barra de rolagem
+        barraRolagem = new JScrollPane();
         this.setLayout(new BorderLayout());
         this.add(barraRolagem);
-        
-        paineis = new CardLayout();
-        trocaInf = new JPanel(paineis);
-        
+
+        //configurar o painel que receberá o painel feito para os usuários
+        paineisLayout = new CardLayout();
+        trocaInf = new JPanel(paineisLayout);
+
+        //mostrando a informação 
         barraRolagem.setViewportView(trocaInf);
-        
-        trocaInf.add(new CompraGUI(),"Compras");
-        paineis.show(trocaInf, "Compras");
+
+        //qual o primeiro painel deisejo mostrar pro usuário
+       // trocaInf.add(new CompraGUI(), "Compras");
+       // paineisLayout.show(trocaInf, "Compras");
+        fazTransicao(new CompraGUI(), "compra");
+       
     }
-    
-    public static void fazTransicao(JPanel novoPainel, String nome){
-        trocaInf.add(novoPainel, nome);
-        paineis.show(trocaInf, nome);
+
+    public static void fazTransicao(JPanel novoPainel, String nome) {
         
-        trocaInf.setPreferredSize(novoPainel.getPreferredSize());
+        if(novoPainel != null){
+            //usuario nunca vizualizou com esse painel
+            trocaInf.add(novoPainel, nome);
+            paineis.put(nome, novoPainel);
+        }
+        
+        paineisLayout.show(trocaInf, nome);
+
+        //correção do tamanho da primeira barra de rolagem
+        trocaInf.setPreferredSize(paineis.get(nome).getPreferredSize());
     }
 
     /**
