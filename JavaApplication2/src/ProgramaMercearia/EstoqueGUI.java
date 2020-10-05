@@ -11,14 +11,14 @@ package ProgramaMercearia;
  */
 public class EstoqueGUI extends javax.swing.JPanel {
 
-  private TabelaEstoque infTabela;
-    
+    private TabelaEstoque infTabela;
+
     public EstoqueGUI() {
         initComponents();
         meuInit();
     }
-    
-    private void meuInit(){
+
+    private void meuInit() {
         infTabela = new TabelaEstoque();
         this.estoqueTabela.setModel(infTabela);
     }
@@ -167,7 +167,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
     private void nomePesquisaTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomePesquisaTFKeyReleased
         String digitado = this.nomePesquisaTF.getText();
         infTabela.atualizaDadosTabela(digitado);
-        
+
         //atualiza as informações na tabela
         estoqueTabela.updateUI();
     }//GEN-LAST:event_nomePesquisaTFKeyReleased

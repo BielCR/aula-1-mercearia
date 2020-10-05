@@ -115,17 +115,17 @@ public class FakeBD {
         }
 
     }
-    
+
     //busca informações para a tabela de produtos estoque
-    public static Vector<Produto> consultaNome(String nome){
+    public static Vector<Produto> consultaNome(String nome) {
         Vector<Produto> temp = new Vector<>();
-        
-        if(nome.isEmpty()){
+
+        if (nome.isEmpty()) {
             temp = produtos;
-        }else{
+        } else {
             //uma consulta por nome foi realizda
-            for(Produto i : produtos){
-                if(i.getNome().toLowerCase().startsWith(nome.toLowerCase())){
+            for (Produto i : produtos) {
+                if (i.getNome().toLowerCase().startsWith(nome.toLowerCase())) {
                     temp.add(i);
                 }
             }

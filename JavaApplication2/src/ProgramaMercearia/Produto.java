@@ -9,7 +9,7 @@ package ProgramaMercearia;
  *
  * @author gabri
  */
-public class Produto implements Comparable<Produto>{
+public class Produto implements Comparable<Produto> {
 
     //definindo variáveis
     private int cod, quant;
@@ -47,6 +47,10 @@ public class Produto implements Comparable<Produto>{
 
     public void setPrec(double prec) {
         this.prec = prec;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override

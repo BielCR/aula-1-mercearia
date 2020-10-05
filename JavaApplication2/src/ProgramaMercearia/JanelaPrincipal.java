@@ -35,7 +35,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void meuInit() {
         paineis = new HashMap<>();
-        
+
         //Carregando arquivos do banco de dados
         FakeBD.carga();
 
@@ -52,22 +52,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraRolagem.setViewportView(trocaInf);
 
         //qual o primeiro painel deisejo mostrar pro usuário
-       // trocaInf.add(new CompraGUI(), "Compras");
-       // paineisLayout.show(trocaInf, "Compras");
+        // trocaInf.add(new CompraGUI(), "Compras");
+        // paineisLayout.show(trocaInf, "Compras");
         fazTransicao(new CompraGUI(), "compra");
-       
+
     }
 
     public static void fazTransicao(JPanel novoPainel, String nome) {
         //quando o novoPainel é nulo, quer dizer que o usuário já interagiu com o painel
         //quando não é nulo, essa é a primeira interação d usuário com o painel
-        
-        if(novoPainel != null && !paineis.containsKey(nome)){
+
+        if (novoPainel != null && !paineis.containsKey(nome)) {
             //usuario nunca vizualizou com esse painel
             trocaInf.add(novoPainel, nome);
             paineis.put(nome, novoPainel);
         }
-        
+
         paineisLayout.show(trocaInf, nome);
 
         //correção do tamanho da primeira barra de rolagem

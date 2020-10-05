@@ -307,7 +307,7 @@ public class CompraGUI extends javax.swing.JPanel {
                         precPTF.setText(produtoSelec.getPrec() + "");
                         quantTF.setEnabled(true);
                     } else {
-                       //tratando uma possível inexistência dos produtos 
+                        //tratando uma possível inexistência dos produtos 
                         JOptionPane.showMessageDialog(null, "Não existe produto com esse código", "Erro", JOptionPane.WARNING_MESSAGE);
                     }
 
@@ -347,23 +347,23 @@ public class CompraGUI extends javax.swing.JPanel {
     private void removBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removBtActionPerformed
         //"pegando" a linha selecionada
         int linhaSel = tabelaCarrinho.getSelectedRow();
-        
+
         //verificano se a linha foi selecionada
         if (linhaSel != -1) {
             //confirmando se o usuário quer mesmo remover o produto
             int op = JOptionPane.showConfirmDialog(null, "Deseja remover o produto selecionado?", "Confirma exclusão?",
                     JOptionPane.YES_NO_OPTION);
-            
+
             if (op == JOptionPane.YES_OPTION) {
                 //requerindo a senha de segurança ifmg
                 String senha = JOptionPane.showInputDialog(null, "Digite a senha de segurança:", "Senha de segurança",
                         JOptionPane.INFORMATION_MESSAGE);
-                
+
                 if (senha != null && senha.equalsIgnoreCase("ifmg")) {
                     //removendo produto e atualizando a tabela
                     carrinhoTab.removeProduto(linhaSel);
                     atualizaTabela();
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Senha inválida", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
@@ -372,9 +372,10 @@ public class CompraGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "O produto não foi selecionado", "Erro", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_removBtActionPerformed
- //verificando a quantidade de produto no estque pra realização da venda
+    //verificando a quantidade de produto no estque pra realização da venda
+
     private boolean verQuant() {
-      
+
         Vector<Produto> compras = carrinhoTab.getProdutos();
 
         for (Produto i : compras) {
