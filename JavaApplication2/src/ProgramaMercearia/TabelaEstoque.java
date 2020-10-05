@@ -115,4 +115,10 @@ public class TabelaEstoque extends AbstractTableModel {
         Collections.sort(produtoEstoque);
     }
 
+    public void removeProduto(int ind) {
+        Produto temp = produtoEstoque.remove(ind);
+
+        FakeBD.delProduto(temp);
+    }
+
 }

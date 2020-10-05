@@ -112,7 +112,7 @@ public class TabelaCompra extends AbstractTableModel {
                 return null;
         }
     }
-    
+
     //metodo de cálculo de preço
     public double calculaPrec() {
         double valor = 0.0;
@@ -125,11 +125,10 @@ public class TabelaCompra extends AbstractTableModel {
     public Vector<Produto> getProdutos() {
         return compras;
     }
-    
+
     //metodo de limpar a tabla 
-    public void limpaCarrinh (){
+    public void limpaCarrinh() {
         this.compras.clear();
     }
-            
 
 }

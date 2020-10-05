@@ -24,9 +24,9 @@ public class CompraGUI extends javax.swing.JPanel {
     }
 
     private void initPers() {
-        //Contrutor do modelo da tabela chamando a classe tabela
+        //Contrutor do modelo da TabelaCompra chamando a classe TabelaCompra
         this.carrinhoTab = new TabelaCompra(this);
-        //definindo a tabela com esse modelo gerado
+        //definindo a TabelaCompra com esse modelo gerado
         tabelaCarrinho.setModel(carrinhoTab);
         //definindo o total da compra com 00
         totalCompra = 0.0;
@@ -261,9 +261,9 @@ public class CompraGUI extends javax.swing.JPanel {
                 produtoSelec = null;
                 quantTF.setEnabled(false);
 
-                //adicionando na tabela o produto que acabou de ser vendido
+                //adicionando na TabelaCompra o produto que acabou de ser vendido
                 this.carrinhoTab.addProduto(vendido);
-                //fazendo o update da tabela
+                //fazendo o update da TabelaCompra
                 tabelaCarrinho.updateUI();
 
             } else {
@@ -282,7 +282,7 @@ public class CompraGUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_addBtActionPerformed
 
-    //função pra atualizar a tabela 
+    //função pra atualizar a TabelaCompra 
     public void atualizaTabela() {
         tabelaCarrinho.updateUI();
 
@@ -360,7 +360,7 @@ public class CompraGUI extends javax.swing.JPanel {
                         JOptionPane.INFORMATION_MESSAGE);
 
                 if (senha != null && senha.equalsIgnoreCase("ifmg")) {
-                    //removendo produto e atualizando a tabela
+                    //removendo produto e atualizando a TabelaCompra
                     carrinhoTab.removeProduto(linhaSel);
                     atualizaTabela();
 
@@ -400,7 +400,7 @@ public class CompraGUI extends javax.swing.JPanel {
             totalCompra = 0.0;
             totalTxt.setText("0,00");
 
-            //remove produtos da tabela
+            //remove produtos da TabelaCompra
             carrinhoTab.limpaCarrinh();
             tabelaCarrinho.updateUI();
 

@@ -5,6 +5,8 @@
  */
 package ProgramaMercearia;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gabri
@@ -96,6 +98,11 @@ public class EstoqueGUI extends javax.swing.JPanel {
         excluiBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         excluiBT.setText("Excluir");
         excluiBT.setAlignmentY(0.0F);
+        excluiBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excluiBTActionPerformed(evt);
+            }
+        });
 
         novoBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         novoBT.setText("Novo");
@@ -171,6 +178,18 @@ public class EstoqueGUI extends javax.swing.JPanel {
         //atualiza as informações na tabela
         estoqueTabela.updateUI();
     }//GEN-LAST:event_nomePesquisaTFKeyReleased
+
+    private void excluiBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluiBTActionPerformed
+        int indice = estoqueTabela.getSelectedRow();
+        if (indice == -1) {
+            //nada foi selecionado
+            JOptionPane.showMessageDialog(null, "Nenhum produto foi selecionado", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            //produto selecionado
+            infTabela.removeProduto(indice);
+            estoqueTabela.updateUI();
+        }
+    }//GEN-LAST:event_excluiBTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
