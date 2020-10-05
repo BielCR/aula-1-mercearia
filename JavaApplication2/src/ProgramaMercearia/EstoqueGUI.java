@@ -5,11 +5,13 @@
  */
 package ProgramaMercearia;
 
+import java.awt.Dialog;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author gabri
+ * @author Gabriel <gabrielcr18@outlook.com>
  */
 public class EstoqueGUI extends javax.swing.JPanel {
 
@@ -34,41 +36,28 @@ public class EstoqueGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nomePesquisaTF = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        nomePesquisaBT = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        nomePesquisaTF = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         estoqueTabela = new javax.swing.JTable();
-        voltarBT = new javax.swing.JButton();
+        nomePesquisaBT = new javax.swing.JButton();
         excluiBT = new javax.swing.JButton();
         novoBT = new javax.swing.JButton();
+        voltarBT = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(733, 405));
-
-        nomePesquisaTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomePesquisaTFActionPerformed(evt);
-            }
-        });
-        nomePesquisaTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nomePesquisaTFKeyReleased(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Nome:");
+        setPreferredSize(new java.awt.Dimension(706, 405));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel3.setText("Estoque");
 
-        nomePesquisaBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nomePesquisaBT.setText("Buscar");
-        nomePesquisaBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomePesquisaBTActionPerformed(evt);
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Nome");
+
+        nomePesquisaTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nomePesquisaTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomePesquisaTFKeyReleased(evt);
             }
         });
 
@@ -86,18 +75,11 @@ public class EstoqueGUI extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(estoqueTabela);
 
-        voltarBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        voltarBT.setText("Voltar");
-        voltarBT.setAlignmentY(0.0F);
-        voltarBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarBTActionPerformed(evt);
-            }
-        });
+        nomePesquisaBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nomePesquisaBT.setText("Pesquisar");
 
         excluiBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         excluiBT.setText("Excluir");
-        excluiBT.setAlignmentY(0.0F);
         excluiBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excluiBTActionPerformed(evt);
@@ -106,69 +88,66 @@ public class EstoqueGUI extends javax.swing.JPanel {
 
         novoBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         novoBT.setText("Novo");
-        novoBT.setAlignmentY(0.0F);
+        novoBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoBTActionPerformed(evt);
+            }
+        });
+
+        voltarBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        voltarBT.setText("Voltar");
+        voltarBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarBTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nomePesquisaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomePesquisaTF)
-                        .addGap(18, 18, 18)
-                        .addComponent(nomePesquisaBT))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE))
+                        .addComponent(nomePesquisaBT)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(excluiBT)
                     .addComponent(novoBT)
                     .addComponent(voltarBT))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(318, 318, 318)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomePesquisaTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomePesquisaBT))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nomePesquisaBT)
+                    .addComponent(excluiBT))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(excluiBT)
-                        .addGap(33, 33, 33)
                         .addComponent(novoBT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 237, Short.MAX_VALUE)
-                        .addComponent(voltarBT)
-                        .addGap(34, 34, 34))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(voltarBT))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nomePesquisaTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePesquisaTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomePesquisaTFActionPerformed
-
-    private void nomePesquisaBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomePesquisaBTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomePesquisaBTActionPerformed
-
     private void voltarBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBTActionPerformed
         JanelaPrincipal.fazTransicao(null, "compra");
-
     }//GEN-LAST:event_voltarBTActionPerformed
 
     private void nomePesquisaTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomePesquisaTFKeyReleased
@@ -176,8 +155,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
         infTabela.atualizaDadosTabela(digitado);
 
         //atualiza as informações na tabela
-        estoqueTabela.updateUI();
-    }//GEN-LAST:event_nomePesquisaTFKeyReleased
+        estoqueTabela.updateUI();    }//GEN-LAST:event_nomePesquisaTFKeyReleased
 
     private void excluiBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluiBTActionPerformed
         int indice = estoqueTabela.getSelectedRow();
@@ -190,6 +168,23 @@ public class EstoqueGUI extends javax.swing.JPanel {
             estoqueTabela.updateUI();
         }
     }//GEN-LAST:event_excluiBTActionPerformed
+
+    private void novoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoBTActionPerformed
+        //criando uma nova janela jdialog
+        JDialog janelaCadastro = new JDialog();
+
+        //bloqueando as janelas que estão por baixo
+        janelaCadastro.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
+
+        //definindo o tamanho da JDialog com base no tamanho da janela cadastro
+        janelaCadastro.setSize(435, 281);
+
+        //Adicionando o painel de cadastro dentro do JDialog
+        janelaCadastro.add(new CadastroGUI());
+
+        //definindo visibilidade como verdadeira
+        janelaCadastro.setVisible(true);
+    }//GEN-LAST:event_novoBTActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
