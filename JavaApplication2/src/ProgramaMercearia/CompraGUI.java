@@ -60,6 +60,7 @@ public class CompraGUI extends javax.swing.JPanel {
         totalTxt = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(790, 405));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Código");

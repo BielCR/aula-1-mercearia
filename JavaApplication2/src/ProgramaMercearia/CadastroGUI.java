@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
  * @author Gabriel <gabrielcr18@outlook.com>
  */
 public class CadastroGUI extends javax.swing.JPanel {
-    
+
     private JDialog janela;
-    
-    public CadastroGUI(JDialog janela) {
+    TabelaEstoque inf;
+
+    public CadastroGUI(JDialog janela, TabelaEstoque inf) {
         this.janela = janela;
+        this.inf = inf;
         initComponents();
     }
 
@@ -142,7 +144,7 @@ public class CadastroGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelaBtActionPerformed
 
     private void salvaBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaBtActionPerformed
-        
+
         if (nomeTF.getText().isEmpty() && quantTF.getText().isEmpty() && precTF.getText().isEmpty()) {
             //nada foi digitado no nome
             JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos não foi digitado", "Erro",
@@ -153,15 +155,17 @@ public class CadastroGUI extends javax.swing.JPanel {
             try {
                 Produto novo = new Produto(Integer.parseInt(quantTF.getText()), nomeTF.getText(),
                         Double.parseDouble(precTF.getText()));
-                
+
+                //insere um novo produto no estoque
                 FakeBD.inserirProduto(novo);
-                
-                
+                //Atualiza os dados da tabela estoque
+                inf.atualizaDadosTabela("");
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Entrada inválida", "Erro", JOptionPane.WARNING_MESSAGE);
             }
         }
-        
+
 
     }//GEN-LAST:event_salvaBtActionPerformed
 

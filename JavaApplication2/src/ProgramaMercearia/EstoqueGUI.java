@@ -180,9 +180,12 @@ public class EstoqueGUI extends javax.swing.JPanel {
 
         //definindo o tamanho da JDialog com base no tamanho da janela cadastro
         janelaCadastro.setSize(435, 281);
+        
+        //definindo localidade cde centro pra janela aparecer
+        janelaCadastro.setLocation(null);
 
         //Adicionando o painel de cadastro dentro do JDialog
-        janelaCadastro.add(new CadastroGUI(janelaCadastro));
+        janelaCadastro.add(new CadastroGUI(janelaCadastro, infTabela));
 
         //definindo visibilidade como verdadeira
         janelaCadastro.setVisible(true);
