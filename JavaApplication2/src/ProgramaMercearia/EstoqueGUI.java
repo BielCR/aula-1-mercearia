@@ -88,6 +88,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
 
         novoBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         novoBT.setText("Novo");
+        novoBT.setPreferredSize(new java.awt.Dimension(77, 25));
         novoBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 novoBTActionPerformed(evt);
@@ -96,6 +97,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
 
         voltarBT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         voltarBT.setText("Voltar");
+        voltarBT.setPreferredSize(new java.awt.Dimension(77, 25));
         voltarBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 voltarBTActionPerformed(evt);
@@ -110,18 +112,18 @@ public class EstoqueGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(nomePesquisaTF, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nomePesquisaBT)))
+                        .addComponent(nomePesquisaBT, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(excluiBT)
-                    .addComponent(novoBT)
-                    .addComponent(voltarBT))
+                    .addComponent(novoBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(voltarBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
@@ -138,9 +140,9 @@ public class EstoqueGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(novoBT)
+                        .addComponent(novoBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(voltarBT))
+                        .addComponent(voltarBT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -180,7 +182,7 @@ public class EstoqueGUI extends javax.swing.JPanel {
         janelaCadastro.setSize(435, 281);
 
         //Adicionando o painel de cadastro dentro do JDialog
-        janelaCadastro.add(new CadastroGUI());
+        janelaCadastro.add(new CadastroGUI(janelaCadastro));
 
         //definindo visibilidade como verdadeira
         janelaCadastro.setVisible(true);

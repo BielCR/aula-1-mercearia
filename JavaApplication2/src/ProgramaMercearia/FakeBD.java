@@ -37,14 +37,14 @@ public class FakeBD {
 
         //caminho do arquivo com nossos produtos
         File arqCsv = new File("C:\\Users\\gabri\\Documents\\produtos.csv");
-        
+
         try {
             //marcando a leitura do arquivo
             FileReader marcaLeitura = new FileReader(arqCsv);
 
             //utlizando o buffer reader pra ler os arquvivos do armazenamento interno pra memória RAM
             BufferedReader bufferLeitura = new BufferedReader(marcaLeitura);
-            
+
             String linha = "";
             //lendo a primeira linha do cabeçalho
             bufferLeitura.readLine();
@@ -75,7 +75,7 @@ public class FakeBD {
         } catch (IOException e) {
             System.err.println("Arquivo corrompido");
         }
-        
+
     }
 
     //função de verificação de produto por código
@@ -109,17 +109,17 @@ public class FakeBD {
             //limpando e fechando o buffer de escrita
             bufEscrita.flush();
             bufEscrita.close();
-            
+
         } catch (IOException ex) {
             System.err.println("dispositivo com falha");
         }
-        
+
     }
 
     //busca informações para a tabela de produtos estoque
     public static Vector<Produto> consultaNome(String nome) {
         Vector<Produto> temp = new Vector<>();
-        
+
         if (nome.isEmpty()) {
             temp = produtos;
         } else {
@@ -132,12 +132,25 @@ public class FakeBD {
         }
         return temp;
     }
-    
+
     public static void delProduto(Produto temp) {
         for (Produto i : produtos) {
             if (temp.getCod() == i.getCod()) {
                 produtos.remove(i);
             }
         }
+    }
+
+    public static void inserirProduto(Produto novo) {
+        int cod = 1;
+        //se a lista de produtos não estiver vazia
+        if (!produtos.isEmpty()) {
+            //pego o código do ultimo elemento e adiciono 1
+            cod = produtos.lastElement().getCod() + 1;
+        }
+        novo.setCod(cod);
+        
+        //adicionando no banco de dados
+        produtos.add(novo);
     }
 }

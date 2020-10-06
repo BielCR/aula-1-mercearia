@@ -16,7 +16,7 @@ public class Produto implements Comparable<Produto> {
     private String nome;
     private double prec;
 
-    //construtor
+    //construtor com código
     public Produto(int cod, int quant, String nome, double prec) {
         this.cod = cod;
         this.quant = quant;
@@ -24,7 +24,22 @@ public class Produto implements Comparable<Produto> {
         this.prec = prec;
     }
 
+    //construtor sem codigo
+
+    public Produto(int quant, String nome, double prec) {
+        this.quant = quant;
+        this.nome = nome;
+        this.prec = prec;
+    }
+    
+
     //geters e seters
+    
+    
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
     public int getCod() {
         return cod;
     }

@@ -5,16 +5,19 @@
  */
 package ProgramaMercearia;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Gabriel <gabrielcr18@outlook.com>
  */
 public class CadastroGUI extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Cadastro
-     */
-    public CadastroGUI() {
+    
+    private JDialog janela;
+    
+    public CadastroGUI(JDialog janela) {
+        this.janela = janela;
         initComponents();
     }
 
@@ -67,9 +70,19 @@ public class CadastroGUI extends javax.swing.JPanel {
 
         salvaBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         salvaBt.setText("Salvar");
+        salvaBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvaBtActionPerformed(evt);
+            }
+        });
 
         cancelaBt.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         cancelaBt.setText("Cancelar");
+        cancelaBt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelaBtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -123,6 +136,34 @@ public class CadastroGUI extends javax.swing.JPanel {
     private void quantTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quantTFActionPerformed
+
+    private void cancelaBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelaBtActionPerformed
+        janela.setVisible(false);
+    }//GEN-LAST:event_cancelaBtActionPerformed
+
+    private void salvaBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaBtActionPerformed
+        
+        if (nomeTF.getText().isEmpty() && quantTF.getText().isEmpty() && precTF.getText().isEmpty()) {
+            //nada foi digitado no nome
+            JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos não foi digitado", "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            //possui algo digitado nos campos
+            janela.setVisible(false);
+            try {
+                Produto novo = new Produto(Integer.parseInt(quantTF.getText()), nomeTF.getText(),
+                        Double.parseDouble(precTF.getText()));
+                
+                FakeBD.inserirProduto(novo);
+                
+                
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Entrada inválida", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        
+
+    }//GEN-LAST:event_salvaBtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
